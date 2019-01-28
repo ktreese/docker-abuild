@@ -1,0 +1,36 @@
+# Contributor: Kris Reese <ktreese@gmail.com>
+# Maintainer: Kris Reese <ktreese@gmail.com>
+pkgname=duo_unix
+pkgver=1.11.1
+pkgrel=0
+pkgdesc="Duo two-factor authentication for Unix systems with Pluggable Authentication Modules (PAM)"
+url="https://duo.com/docs/duounix"
+arch="all"
+license="GPL"
+depends="openssh openssh-server-pam"
+makedepends="openssl-dev linux-pam-dev openssh-server-pam libtool"
+install=""
+subpackages="$pkgname-doc"
+source="https://dl.duosecurity.com/$pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+options="suid"
+
+prepare() {
+	default_prepare
+}
+
+build() {
+	cd "$builddir"
+	./configure --with-pam --prefix=/usr
+	make
+}
+
+check() {
+	cd "$builddir"
+}
+
+package() {
+	cd "$builddir"
+	mkdir -p "$pkgdir"
+	make DESTDIR="$pkgdir" install
+}
