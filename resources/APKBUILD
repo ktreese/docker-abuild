@@ -25,14 +25,14 @@ build() {
 	make
 }
 
-check() {
-	cd "$builddir"
-}
-
 package() {
 	cd "$builddir"
 	mkdir -p "$pkgdir"
 	make DESTDIR="$pkgdir" install
+}
+
+check() {
+	cd "$builddir"
 }
 
 sha512sums="d871173f9e121f1d42e4161b1b2c44bbee001e390c6d45a44f68e74b4bf5b8562ac5cef8f8910d9148001955f8a20380331bf2d6f0e77d9af20d739fc0118678  duo_unix-1.11.1.tar.gz"
